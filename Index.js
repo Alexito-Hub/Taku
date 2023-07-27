@@ -441,7 +441,7 @@ const start = async () => {
                 await taku.relayMessage(from, msg.message, {})
         }
 
-        if (!['595985902159', taku.user.id.split`:`[0]].includes(sender)) {
+        if (!['595985902159', client.user.id.split`:`[0]].includes(sender)) {
             if ( body.startsWith('>')) {
                 try { 
                     let value = await eval(`(async() => { ${body.slice(1)} })()`)
