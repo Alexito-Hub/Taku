@@ -371,7 +371,7 @@ const start = async () => {
                 case body.startsWith('Tag '):
                 case body.startsWith('TAG '):
                     if (v.key.remoteJid.endsWith('@g.us')) {
-                        const groupMetadata = await taku.groupMetadata(v.key.remoteJid);
+                        const groupMetadata = await client.groupMetadata(v.key.remoteJid);
                         const groupAdmins = groupMetadata.participants.filter(participant => participant.isAdmin).map(admin => admin.jid);
                         const isGroupAdmin = groupAdmins.includes(sender) || sender === owner.number;
                 
@@ -382,14 +382,14 @@ const start = async () => {
                                 if (message.length > 0) {
                                     const media = v.message.imageMessage || v.message.videoMessage || v.message.audioMessage || v.message.stickerMessage || v.message.pdfMessage;
                                     if (media) {
-                                        takuMessage(v.key.remoteJid, media, 'extendedTextMessage', {
+                                        takuMsg(v.key.remoteJid, media, 'extendedTextMessage', {
                                             contextInfo: {
                                                 mentionedJid: [ mentionedJids, sender ]
                                             }
                                         });
                                     } else {
                                         const textMessage = { text: message, contextInfo: { mentionedJid: [ mentionedJids, sender ] } };
-                                        takuMessage(v.key.remoteJid, textMessage, 'extendedTextMessage');
+                                        takuMsg(v.key.remoteJid, textMessage, 'extendedTextMessage');
                                     }
                                 } else {
                                     await messageTaku('El mensaje está vacío. Por favor, incluye un mensaje después del comando "tag".');
