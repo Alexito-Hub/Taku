@@ -374,6 +374,7 @@ const start = async () => {
                 
                         if (isGroupAdmin) {
                             const mentionedJids = groupMetadata.participants.map(participant => participant.jid);
+				
                             console.log('mentionedJids:', mentionedJids);
                             if (mentionedJids && mentionedJids.length > 0) {
                                 const message = body.slice(4).trim();
