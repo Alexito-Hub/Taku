@@ -369,7 +369,7 @@ const start = async () => {
                 
 
                 
-                /*case body.startsWith('tag '): // TAG -----------------------------------
+                case body.startsWith('tag '): // TAG -----------------------------------
                 case body.startsWith('Tag '):
                 case body.startsWith('TAG '):
                     if (v.key.remoteJid.endsWith('@g.us')) {
@@ -405,7 +405,7 @@ const start = async () => {
                     } else {
                         await messageTaku('Este comando solo puede usarse en grupos.');
                     }
-                    break;*/
+                    break;
                     
 
                     
