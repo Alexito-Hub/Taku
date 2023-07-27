@@ -141,12 +141,12 @@ const start = async () => {
             const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
             if (type === 'invite') {
                 function welcomeMessage() {
-                    return ¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉;
+                    return `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
                 }
                 await taku.sendMessage(groupId, { text: welcomeMessage() }, 'extendedTextMessage');
             } else if (type === 'remove') {
                 function goodbyeMessage() {
-                    return Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋;
+                    return `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
                 }
                 await taku.sendMessage(groupId, { text: goodbyeMessage() }, 'extendedTextMessage');
             }
