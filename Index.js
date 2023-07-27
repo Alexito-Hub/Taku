@@ -367,8 +367,8 @@ const start = async () => {
                 case body.startsWith('tag '): // TAG -----------------------------------
                 case body.startsWith('Tag '):
                 case body.startsWith('TAG '):
-                    if (v.key.remoteJid.endsWith('@g.us')) {
-                        const groupMetadata = await client.groupMetadata(v.key.remoteJid);
+                    if (from.endsWith('@g.us')) {
+                        const groupMetadata = await client.groupMetadata(from);
                         const groupAdmins = groupMetadata.participants.filter(participant => participant.isAdmin).map(admin => admin.jid);
                         const isGroupAdmin = groupAdmins.includes(sender) || sender === owner.number;
                 
