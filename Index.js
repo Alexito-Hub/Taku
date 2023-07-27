@@ -136,12 +136,11 @@ const start = async () => {
       console.log('group-participants.update event triggered');
       const groupId = update.id;
       const participants = update.participants;
+      const action = update.action;
     
       for (const participant of participants) {
-        console.log('participant:', participant);
-        const { jid, notify, displayName, action } = participant;
-        const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
-        console.log(`participant update: ${user}, action: ${action}`);
+        console.log(`participant update: ${participant}, action: ${action}`);
+        const user = participant.split('@')[0];
     
         if (action === 'add') {
           const welcomeMessage = `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
