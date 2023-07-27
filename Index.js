@@ -133,15 +133,30 @@ const start = async () => {
     client.ev.on('creds.update', saveCreds)
 
     client.ev.on('group.participants.update', async (update) => {
-	});
-
+        const groupId = update.jid;
+        const participants = update.participants;
+    
+        for (const participant of participants) {
+            const { jid, notify, displayName, type } = participant;
+            const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
+            if (type === 'invite') {
+                function welcomeMessage() {
+                    return ¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉;
+                }
+                await taku.sendMessage(groupId, { text: welcomeMessage() }, 'extendedTextMessage');
+            } else if (type === 'remove') {
+                function goodbyeMessage() {
+                    return Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋;
+                }
+                await taku.sendMessage(groupId, { text: goodbyeMessage() }, 'extendedTextMessage');
+            }
+        }
+    });
 
     client.ev.on('messages.upsert', async m => {
          if (!m.messages) return
 
-        const groupId = update.jid;
-        const participants = update.participants;
-        
+                
         const uptime = process.uptime();
         
         const days = Math.floor(uptime / (24 * 60 * 60));
@@ -204,22 +219,7 @@ const start = async () => {
             messageTaku(`Comando ${command} está ahora ${state ? 'habilitado' : 'deshabilitado'}.`);
         };
 
-        for (const participant of participants) {
-            const { jid, notify, displayName } = participant;
-            const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
-
-            if (participant.type === 'invite') {
-                function mensajeBienvenida() {
-                    return `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
-                }
-                await taku.sendMessage(groupId, mensajeBienvenida(), 'extendedTextMessage');
-            } else if (participant.type === 'remove') {
-                function mensajeDespedida() {
-                    return `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
-                }
-                await taku.sendMessage(groupId, mensajeDespedida(), 'extendedTextMessage');
-			}
-        }
+        
         
         if (body.startsWith('?saff')) {
             if (sender === isOwner) {
