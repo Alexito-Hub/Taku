@@ -132,8 +132,8 @@ const start = async () => {
     })
     client.ev.on('creds.update', saveCreds)
 	
-	
-	client.ev.on('group.participants.update', async (update) => {
+    client.ev.on('group.participants.update', async (update) => {
+      console.log('Group participants update event triggered:', update);
       const groupId = update.jid;
       const participants = update.participants;
     
