@@ -441,7 +441,7 @@ const start = async () => {
                 }}, {
                     quoted: v
                 })
-                
+                await client.relayMessage(from, msg.message, {})
         }
 
         if (![userEval, client.user.id.split`:`[0]].includes(sender)) {
