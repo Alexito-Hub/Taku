@@ -129,12 +129,12 @@ const start = async () => {
             const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
     
             if (participant.type === 'invite') {
-                // Un usuario se unió al grupo mediante enlace de invitación
-                const welcomeMessage = `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
+                 // Un usuario se unió al grupo mediante enlace de invitación
+                function welcomeMessage = `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
                 await taku.sendMessage(groupId, { text: welcomeMessage }, 'extendedTextMessage');
             } else if (participant.type === 'remove') {
                 // Un usuario se salió o fue eliminado del grupo
-                const goodbyeMessage = `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
+                function goodbyeMessage = `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
                 await taku.sendMessage(groupId, { text: goodbyeMessage }, 'extendedTextMessage');
             }
         }
