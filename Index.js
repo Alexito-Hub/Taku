@@ -16,11 +16,6 @@ const Parser = require('expr-eval').Parser
 const i18n = require('i18n')
 
 const configFile = 'config.json'
-const kattData = fs.readFileSync('others/katt.json', 'utf8')
-const vidaData = fs.readFileSync('others/consejo-vida.json', 'utf8')
-
-const kattMessages = JSON.parse(kattData)
-const vidaMessages = JSON.parse(vidaData)
 
 const date = new Date()
 const parser = new Parser();
