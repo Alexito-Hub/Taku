@@ -383,7 +383,7 @@ const start = async () => {
                                     if (media) {
                                         takuMsg(v.key.remoteJid, media, 'extendedTextMessage', {
                                             contextInfo: {
-                                                mentionedJid: [ mentionedJids, sender ]
+												quoted: [ mentionedJids, sender ]
                                             }
                                         });
                                     } else {
