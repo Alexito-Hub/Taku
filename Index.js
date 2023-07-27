@@ -132,37 +132,22 @@ const start = async () => {
     })
     client.ev.on('creds.update', saveCreds)
 	
-    client.ev.on('group.participants.update', async (update) => {
-      console.log('Group participants update event triggered:', update);
-      const groupId = update.jid;
+    client.ev.on('group-participants.update', async (update) => {
+      console.log('group-participants.update event triggered');
+      const groupId = update.id;
       const participants = update.participants;
     
-      const sendWelcomeMessage = async (user) => {
-        try {
-          const welcomeMessage = `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
-          await client.sendMessage(groupId, { text: welcomeMessage }, 'extendedTextMessage');
-        } catch (error) {
-          console.error('Error al enviar el mensaje de bienvenida:', error);
-        }
-      };
-    
-      const sendGoodbyeMessage = async (user) => {
-        try {
-          const goodbyeMessage = `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
-          await client.sendMessage(groupId, { text: goodbyeMessage }, 'extendedTextMessage');
-        } catch (error) {
-          console.error('Error al enviar el mensaje de despedida:', error);
-        }
-      };
-    
       for (const participant of participants) {
-        const { jid, notify, displayName, type } = participant;
+        const { jid, notify, displayName, action } = participant;
         const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
+        console.log(`participant update: ${user}, action: ${action}`);
     
-        if (type === 'invite') {
-          await sendWelcomeMessage(user);
-        } else if (type === 'remove') {
-          await sendGoodbyeMessage(user);
+        if (action === 'add') {
+          const welcomeMessage = `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
+          sendMessage(groupId, welcomeMessage);
+        } else if (action === 'remove') {
+          const goodbyeMessage = `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
+          sendMessage(groupId, goodbyeMessage);
         }
       }
     });
