@@ -131,7 +131,8 @@ const start = async () => {
         }
     })
     client.ev.on('creds.update', saveCreds)
-
+	
+	
 	client.ev.on('group.participants.update', async (update) => {
       const groupId = update.jid;
       const participants = update.participants;
