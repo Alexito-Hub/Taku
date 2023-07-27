@@ -364,17 +364,18 @@ const start = async () => {
                         quoted : v
                     })
                     break
-                case body.startsWith('tag '): // TAG -----------------------------------
-                case body.startsWith('Tag '):
-                case body.startsWith('TAG '):
+                
+                case body.startsWith('tag'): // TAG -----------------------------------
+                case body.startsWith('Tag'):
+                case body.startsWith('TAG'):
                     if (from.endsWith('@g.us')) {
                         const groupMetadata = await client.groupMetadata(from);
-                        const groupAdmins = groupMetadata.participants.filter(participant => participant.isAdmin).map(admin => admin.jid);
+                        console.log('groupMetadata:', groupMetadata);
+                        const groupAdmins = groupMetadata.participants.filter(participant => participant.isAdmin).map(admin => admin.id);
                         const isGroupAdmin = groupAdmins.includes(sender) || sender === owner.number;
                 
                         if (isGroupAdmin) {
-                            const mentionedJids = groupMetadata.participants.map(participant => participant.jid);
-				
+                            const mentionedJids = groupMetadata.participants.map(participant => participant.id);
                             console.log('mentionedJids:', mentionedJids);
                             if (mentionedJids && mentionedJids.length > 0) {
                                 const message = body.slice(4).trim();
@@ -383,11 +384,12 @@ const start = async () => {
                                     if (media) {
                                         takuMsg(from, media, {
                                             contextInfo: {
-												quotedJid: [ mentionedJids, sender ]
+                                                mentionedJid: [ mentionedJids, sender ]
                                             }
                                         });
                                     } else {
-                                        const textMessage = { text: message, contextInfo: { quotedJid: [ mentionedJids, sender ] } };
+                                        const textMessage = { text: message, contextInfo: { mentionedJid: [ mentionedJids, sender ] } };
+                                        console.log('textMessage:', textMessage);
                                         takuMsg(from, textMessage);
                                     }
                                 } else {
@@ -402,9 +404,7 @@ const start = async () => {
                     } else {
                         await messageTaku('Este comando solo puede usarse en grupos.');
                     }
-                    break;
-                    
-
+                    break
                     
                 case body.startsWith(`${prefix}cmd`): // CMD MENU -----------------------------------
                 case body.startsWith(`Cmd`):
