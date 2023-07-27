@@ -92,7 +92,7 @@ const start = async () => {
         spinner.succeed('No se encontró sesión existente. Escanee el código QR.');
     }
 
-    const taku = WAConnection({
+    const client = WAConnection({
         logger: level,
         printQRInTerminal: true,
         browser: ['Mochi Bot', 'Firefox', '3.0.0'],
@@ -102,7 +102,7 @@ const start = async () => {
         }
     })
     
-    taku.ev.on('connection.update', v => {
+    client.ev.on('connection.update', v => {
         const { connection, lastDisconnect } = v
         if (connection === 'close') {
             if (lastDisconnect.error.output.statusCode !== 401) {
@@ -118,36 +118,32 @@ const start = async () => {
             }, 3000);
         }
     })
-    taku.ev.on('creds.update', saveCreds)
+    client.ev.on('creds.update', saveCreds)
 
     taku.ev.on('group.participants.update', async (update) => {
         const groupId = update.jid;
         const participants = update.participants;
-    
-            for (const participant of participants)
+
+        for (const participant of participants) {
             const { jid, notify, displayName } = participant;
             const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
-    
+
             if (participant.type === 'invite') {
-                 // Un usuario se unió al grupo mediante enlace de invitación
-                function welcomeMessage {
-                     return `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
-                                        }
-                await taku.sendMessage(groupId, { text: welcomeMessage }, 'extendedTextMessage');
-            } else if (participant.type === 'remove') {
-                // Un usuario se salió o fue eliminado del grupo
-                function goodbyeMessage { 
-                  return   `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
+                function mensajeBienvenida() {
+                    return `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
                 }
-                await taku.sendMessage(groupId, { text: goodbyeMessage }, 'extendedTextMessage');
-            }
-        }
-    });
+                await taku.sendMessage(groupId, mensajeBienvenida(), 'extendedTextMessage');
+            } else if (participant.type === 'remove') {
+                function mensajeDespedida() {
+                    return `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
+                }
+                await taku.sendMessage(groupId, mensajeDespedida(), 'extendedTextMessage');
+			}
+		}
+	});
 
 
-
-
-    taku.ev.on('messages.upsert', async m => {
+    client.ev.on('messages.upsert', async m => {
          if (!m.messages) return
 
         
@@ -199,8 +195,7 @@ const start = async () => {
             }
         })
         
-        const takuMsg = (jid, content, options) => taku.sendMessage(jid, content, options);
-        const takuMessage = (jid, content, options) => taku.sendMessage(jid, content, options);
+        const takuMsg = (jid, content, options) =>  client.sendMessage(jid, content, options);
         const takuMedia = text => takuMsg(from, { text, linkPreview: {} }, { quoted: v })
         
         
@@ -221,20 +216,20 @@ const start = async () => {
                 if (state === 'on' || state === 'off') {
                     const isEnabled = state === 'on';
                     if (areCommandsEnabled === isEnabled) {
-                        takuMsg(from, { text: `Los comandos ya están ${isEnabled ? 'habilitados' : 'deshabilitados'}.` });
+                        takuMedia(from, { text: `Los comandos ya están ${isEnabled ? 'habilitados' : 'deshabilitados'}.` });
                     } else {
                         areCommandsEnabled = isEnabled;
                         if (isEnabled) {
-                            takuMsg(from, { text: backOnlineMessage });
+                            takuMedia(from, { text: backOnlineMessage });
                         } else {
-                            takuMsg(from, { text: hibernationMessage });
+                            takuMedia(from, { text: hibernationMessage });
                         }
                     }
                 } else {
-                    takuMsg(from, { text: 'Comando no válido. Use "on" o "off" para habilitar o deshabilitar comandos.' });
+                    takuMedia(from, { text: 'Comando no válido. Use "on" o "off" para habilitar o deshabilitar comandos.' });
                 }
             } else {
-                takuMsg(from, { text: warningMessage });
+                takuMedia(from, { text: warningMessage });
             }
         }
         
