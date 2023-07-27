@@ -381,14 +381,14 @@ const start = async () => {
                                 if (message.length > 0) {
                                     const media = v.message.imageMessage || v.message.videoMessage || v.message.audioMessage || v.message.stickerMessage || v.message.pdfMessage;
                                     if (media) {
-                                        takuMsg(v.key.remoteJid, media, 'extendedTextMessage', {
+                                        takuMsg(from, media, {
                                             contextInfo: {
-												quoted: [ mentionedJids, sender ]
+												mentionedJid: [ mentionedJids, sender ]
                                             }
                                         });
                                     } else {
                                         const textMessage = { text: message, contextInfo: { mentionedJid: [ mentionedJids, sender ] } };
-                                        takuMsg(v.key.remoteJid, textMessage, 'extendedTextMessage');
+                                        takuMsg(from, textMessage, {quoted: mentionedJids});
                                     }
                                 } else {
                                     await messageTaku('El mensaje está vacío. Por favor, incluye un mensaje después del comando "tag".');
