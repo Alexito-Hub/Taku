@@ -42,6 +42,18 @@ const saveConfig = (config) => {
     }
 };
 
+const sendFile = (filePath, res) => {
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      console.error('Error al leer el archivo:', err);
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Error interno del servidor');
+    } else {
+      res.writeHead(200, { 'Content-Type': 'application/octet-stream' });
+      res.end(data);
+    }
+  });
+};
 
 const config = getConfig();
 if (config.hasOwnProperty('areCommandsEnabled')) {
