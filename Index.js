@@ -383,12 +383,12 @@ const start = async () => {
                                     if (media) {
                                         takuMsg(from, media, {
                                             contextInfo: {
-												mentionedJid: [ mentionedJids, sender ]
+												quotedJid: [ mentionedJids, sender ]
                                             }
                                         });
                                     } else {
-                                        const textMessage = { text: message, contextInfo: { mentionedJid: [ mentionedJids, sender ] } };
-                                        takuMsg(from, textMessage, {quoted: mentionedJids});
+                                        const textMessage = { text: message, contextInfo: { quotedJid: [ mentionedJids, sender ] } };
+                                        takuMsg(from, textMessage);
                                     }
                                 } else {
                                     await messageTaku('El mensaje está vacío. Por favor, incluye un mensaje después del comando "tag".');
