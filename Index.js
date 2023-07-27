@@ -158,11 +158,7 @@ const start = async () => {
         const dateString = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
         const utcOffset = -5
         const peruTime = new Date(date.getTime() + utcOffset * 60 * 60 * 1000)
-        
-        const vidaIndex = Math.floor(Math.random() * vidaMessages.length)
-        const vidaMessage = vidaMessages[vidaIndex]
-        
-
+         
         const v = m.messages[0]
         const from = v.key.remoteJid
         const sender = (v.key.participant || v.key.remoteJid)
