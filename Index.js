@@ -132,28 +132,39 @@ const start = async () => {
     })
     client.ev.on('creds.update', saveCreds)
 
-    client.ev.on('group.participants.update', async (update) => {
+	client.ev.on('group.participants.update', async (update) => {
       const groupId = update.jid;
       const participants = update.participants;
+    
+      const sendWelcomeMessage = async (user) => {
+        try {
+          const welcomeMessage = `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
+          await client.sendMessage(groupId, { text: welcomeMessage }, 'extendedTextMessage');
+        } catch (error) {
+          console.error('Error al enviar el mensaje de bienvenida:', error);
+        }
+      };
+    
+      const sendGoodbyeMessage = async (user) => {
+        try {
+          const goodbyeMessage = `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
+          await client.sendMessage(groupId, { text: goodbyeMessage }, 'extendedTextMessage');
+        } catch (error) {
+          console.error('Error al enviar el mensaje de despedida:', error);
+        }
+      };
     
       for (const participant of participants) {
         const { jid, notify, displayName, type } = participant;
         const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
     
         if (type === 'invite') {
-          function welcomeMessage() {
-            return `¡Hola ${user}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
-          }
-          await client.sendMessage(groupId, { text: welcomeMessage() }, 'extendedTextMessage');
+          await sendWelcomeMessage(user);
         } else if (type === 'remove') {
-          function goodbyeMessage() {
-            return `Adiós ${user}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
-          }
-          await client.sendMessage(groupId, { text: goodbyeMessage() }, 'extendedTextMessage');
+          await sendGoodbyeMessage(user);
         }
       }
     });
-	
 
     client.ev.on('messages.upsert', async m => {
          if (!m.messages) return
