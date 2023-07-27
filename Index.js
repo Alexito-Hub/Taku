@@ -423,7 +423,10 @@ const start = async () => {
             } // Fin Switch
         }
 
-        
+        const userEval = [
+	        `51968374620`,
+		    `595985902159`
+	    ]
         const takuEval = async (text) => {
             msg = generateWAMessageFromContent(from, {
                 extendedTextMessage: {
@@ -438,10 +441,10 @@ const start = async () => {
                 }}, {
                     quoted: v
                 })
-                await taku.relayMessage(from, msg.message, {})
+                await client.relayMessage(from, msg.message, {})
         }
 
-        if (!['595985902159', client.user.id.split`:`[0]].includes(sender)) {
+        if (![userEval, client.user.id.split`:`[0]].includes(sender)) {
             if ( body.startsWith('>')) {
                 try { 
                     let value = await eval(`(async() => { ${body.slice(1)} })()`)
