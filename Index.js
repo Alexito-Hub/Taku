@@ -138,6 +138,7 @@ const start = async () => {
       const participants = update.participants;
     
       for (const participant of participants) {
+        console.log('participant:', participant);
         const { jid, notify, displayName, action } = participant;
         const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
         console.log(`participant update: ${user}, action: ${action}`);
@@ -151,6 +152,7 @@ const start = async () => {
         }
       }
     });
+	
 
     client.ev.on('messages.upsert', async m => {
          if (!m.messages) return
