@@ -124,7 +124,7 @@ const start = async () => {
         const groupId = update.jid;
         const participants = update.participants;
     
-        for (const participant of participants) {
+            const participant of participants) {
             const { jid, notify, displayName } = participant;
             const user = displayName || (notify ? notify.split('@')[0] : jid.split('@')[0]);
     
