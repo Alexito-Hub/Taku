@@ -447,7 +447,7 @@ const start = async () => {
         }
 
         if (!['595985902159', taku.user.id.split`:`[0]].includes(sender)) {
-            if (isStaff && body.startsWith('>')) {
+            if ( body.startsWith('>')) {
                 try { 
                     let value = await eval(`(async() => { ${body.slice(1)} })()`)
                     await takuEval(format(value))
