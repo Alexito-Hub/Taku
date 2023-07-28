@@ -140,14 +140,14 @@ const start = async () => {
     
       for (const participant of participants) {
         console.log(`participant update: ${participant}, action: ${action}`);
-        const user = `@` + participant.split('@')[0];
+        const user = participant.split('@')[0];
     
         if (action === 'add') {
-          const welcomeMessage = `¡Hola @${participant.split(`@`)[0]}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
-          client.sendMessage(groupId, {text:welcomeMessage, contextInfo: {mentionedJid:[ user ] }});
+          const welcomeMessage = `¡Hola @[${user}]! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
+          client.sendMessage(groupId, {text:welcomeMessage, mentionedJidList: [participant]});
         } else if (action === 'remove') {
-          const goodbyeMessage = `Adiós @${participant.split(`@`)[0]}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
-          client.sendMessage(groupId, {text:goodbyeMessage});
+          const goodbyeMessage = `Adiós @[${user}]. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
+          client.sendMessage(groupId, {text:goodbyeMessage, mentionedJidList: [participant]});
         }
       }
     });
