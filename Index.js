@@ -143,11 +143,11 @@ const start = async () => {
         const user = participant.split('@')[0];
     
         if (action === 'add') {
-          const welcomeMessage = `¡Hola @[${user}]! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
+          const welcomeMessage = `¡Hola @[${participant}]! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
           client.sendMessage(groupId, {text:welcomeMessage, contextinfo: { mentionedJid: [participant]);}
 	}
         } else if (action === 'remove') {
-          const goodbyeMessage = `Adiós @[${user}]. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
+          const goodbyeMessage = `Adiós @[${participant}]. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
           client.sendMessage(groupId, {text:goodbyeMessage, contextinfo: { mentionedJid: [participant]});}
         }
       }
