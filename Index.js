@@ -144,10 +144,10 @@ const start = async () => {
     
         if (action === 'add') {
           const welcomeMessage = `¡Hola @[${user}]! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
-          client.sendMessage(groupId, {text:welcomeMessage, mentionedJidList: [participant]});
+          client.sendMessage(groupId, {text:welcomeMessage, mentionedJid: [participant]});
         } else if (action === 'remove') {
           const goodbyeMessage = `Adiós @[${user}]. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
-          client.sendMessage(groupId, {text:goodbyeMessage, mentionedJidList: [participant]});
+          client.sendMessage(groupId, {text:goodbyeMessage, mentionedJid: [participant]});
         }
       }
     });
