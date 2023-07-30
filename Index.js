@@ -386,9 +386,7 @@ const start = async () => {
                                         takuMsg(from, media, mentionedJid: [ mentionedJid ]
                                         });
                                     } else {
-                                        const textMessage = { text: message, mentionedJids: [ mentionedJids ] };
-                                        console.log('textMessage:', textMessage);
-                                        takuMsg(from, textMessage);
+                                        takuMsg(from, {text, contextInfo: {mentionedJid:[mentionedJids]}});
                                     }
                                 } else {
                                     await messageTaku('El mensaje está vacío. Por favor, incluye un mensaje después del comando "tag".');
