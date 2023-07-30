@@ -385,11 +385,11 @@ const start = async () => {
                                     if (media) {
                                         takuMsg(from, media, {
                                             contextInfo: {
-                                                mentionedJid: [ mentionedJids, sender ]
+                                                mentionedJid: [ mentionedJids ]
                                             }
                                         });
                                     } else {
-                                        const textMessage = { text: message, contextInfo: { mentionedJid: [ mentionedJids, sender ] } };
+                                        const textMessage = { text: message, contextInfo: { mentionedJid: [ mentionedJids ] } };
                                         console.log('textMessage:', textMessage);
                                         takuMsg(from, textMessage);
                                     }
