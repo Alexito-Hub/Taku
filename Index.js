@@ -383,13 +383,10 @@ const start = async () => {
                                 if (message.length > 0) {
                                     const media = v.message.imageMessage || v.message.videoMessage || v.message.audioMessage || v.message.stickerMessage || v.message.pdfMessage;
                                     if (media) {
-                                        takuMsg(from, media, {
-                                            contextInfo: {
-                                                mentionedJid: [ mentionedJids ]
-                                            }
+                                        takuMsg(from, media, mentionedJid: [ mentionedJid ]
                                         });
                                     } else {
-                                        const textMessage = { text: message, contextInfo: { mentionedJid: [ mentionedJids ] } };
+                                        const textMessage = { text: message, mentionedJid: [ mentionedJids ] };
                                         console.log('textMessage:', textMessage);
                                         takuMsg(from, textMessage);
                                     }
