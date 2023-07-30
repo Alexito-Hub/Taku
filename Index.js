@@ -386,7 +386,7 @@ const start = async () => {
                                         takuMsg(from, media, mentionedJid: [ mentionedJid ]
                                         });
                                     } else {
-                                        const textMessage = { text: message, mentionedJid: [ mentionedJids ] };
+                                        const textMessage = { text: message, mentionedJids: [ mentionedJids ] };
                                         console.log('textMessage:', textMessage);
                                         takuMsg(from, textMessage);
                                     }
