@@ -143,7 +143,7 @@ const start = async () => {
         const user = participant.split('@')[0];
     
         if (action === 'add') {
-          const welcomeMessage = `¡Hola @${participant}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
+          const welcomeMessage = `¡Hola @${participant.split`@`[0]}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
           client.sendMessage(groupId, {text:welcomeMessage, contextinfo: { mentionedJid: [participant]}})
 	}
         } else if (action === 'remove') {
