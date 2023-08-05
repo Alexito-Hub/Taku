@@ -1,30 +1,14 @@
 {
-    "commands": {
-        "media": {
-            "youtube": false,
-            "facebook": false,
-            "instagram": false,
-            "tiktok": false,
-            "spotify": false,
-            "twitter": false
-        },
-        "herramientas": {
-            "calculadora": false,
-            "traductor": false
-        },
-        "propietario": {
-            "areCommandsEnabled": true,
-            "banUser": true,
-            "banGroup": true
-        },
-        "grupo": {
-            "administrador": {
-                "welcome": false
-                
-            },
-            "usuario": {
-                
-            }
-        }
-    }
+    "youtube": false,
+    "facebook": false,
+    "instagram": false,
+    "tiktok": false,
+    "spotify": false,
+    "twitter": false,
+    "calculadora": false,
+    "traductor": false,
+    "areCommandsEnabled": true,
+    "banUser": true,
+    "banGroup": true,
+    "welcome": false
 }
