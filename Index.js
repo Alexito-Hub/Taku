@@ -189,7 +189,7 @@ const start = async () => {
         const { commandsTaku } = require('./src/messages')
         
 
-        const messageTaku = text => takuMessage(from, {
+        const messageTaku = text => takuMsg(from, {
             text,
             contextInfo: {
                 mentionedJid: [sender],
