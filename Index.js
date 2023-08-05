@@ -382,7 +382,7 @@ const start = async () => {
                                 if (message.length > 0) {
                                     const media = v.message.imageMessage || v.message.videoMessage || v.message.audioMessage || v.message.stickerMessage || v.message.pdfMessage;
                                     if (media) {
-                                        takuMsg(from, media, mentionedJid: [ mentionedJid ]
+                                        takuMsg(from, media, { contextInfo: {mentionedJid: [ mentionedJids ]}
                                         });
                                     } else {
                                         takuMsg(from, {text, contextInfo: {mentionedJid:[mentionedJids]}});
