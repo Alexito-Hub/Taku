@@ -143,14 +143,14 @@ const start = async () => {
             const user = participant.split('@')[0];
             if (action === 'add') {
                 client.sendMessage(groupId, { 
-                    text:`¡Bienvenido/a ${user} al grupo NaN! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
+                    text:`¡Bienvenido/a @${user} al grupo NaN! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
                     contextInfo: {
                         mentionedJid: [participant],
                         externalAdReply: {
                             title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
                             body: `ugu`,
                             showAdAttribution: true,
-                            renderLargerThumbnail: false, 
+                            renderLargerThumbnail: true, 
                             mediaType: 1, 
                             thumbnailUrl: 'https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/06/30/62be22d15330dd1f2a2f91c0.webp'
                             }
@@ -159,14 +159,14 @@ const start = async () => {
 
             } else if (action === 'remove') {
                 client.sendMessage(groupId, {
-                    text:`Lamentamos ver partir a ${user}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
+                    text:`Lamentamos ver partir a @${user}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
                     contextInfo: {
                         mentionedJid: [participant],
                         externalAdReply: {
                             title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
                             body: `Ugu`,
                             showAdAttribution: true,
-                            renderLargerThumbnail: false, 
+                            renderLargerThumbnail: true, 
                             mediaType: 1, 
                             thumbnailUrl: 'https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/06/30/62be22d15330dd1f2a2f91c0.webp'
                             }
