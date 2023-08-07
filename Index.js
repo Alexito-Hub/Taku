@@ -133,23 +133,47 @@ const start = async () => {
     client.ev.on('creds.update', saveCreds)
 	
     client.ev.on('group-participants.update', async (update) => {
-      console.log('group-participants.update event triggered');
-      const groupId = update.id;
-      const participants = update.participants;
-      const action = update.action;
-    
-      for (const participant of participants) {
-        console.log(`participant update: ${participant}, action: ${action}`);
-        const user = participant.split('@')[0];
-    
-        if (action === 'add') {
-          const welcomeMessage = `¡Hola @${participant.split`@`[0]}! Bienvenido/a al grupo. ¡Esperamos que te diviertas y disfrutes tu estancia aquí! 🎉`;
-          client.sendMessage(groupId, {text:welcomeMessage, contextinfo: { mentionedJid: [participant]}})
-        } else if (action === 'remove') {
-          const goodbyeMessage = `Adiós @${participant}. Esperamos que hayas tenido una buena experiencia en el grupo. ¡Te echaremos de menos! 👋`;
-          client.sendMessage(groupId, {text:goodbyeMessage, contextinfo: { mentionedJid: [participant]}})
+        console.log('group-participants.update event triggered');
+        const groupId = update.id;
+        const participants = update.participants;
+        const action = update.action;
+
+        for (const participant of participants) {
+            console.log(`participant update: ${participant}, action: ${action}`);
+            const user = participant.split('@')[0];
+            if (action === 'add') {
+                client.sendMessage(groupId, { 
+                    text:`¡Bienvenido/a ${user} al grupo ${groupName}! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
+                    contextInfo: {
+                        mentionedJid: [participant],
+                        externalAdReply: {
+                            title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
+                            body: `${days} dias ${hours} horas ${minutes} minutos ${seconds} segunfos`,
+                            showAdAttribution: true,
+                            renderLargerThumbnail: false, 
+                            mediaType: 1, 
+                            thumbnailUrl: 'https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/06/30/62be22d15330dd1f2a2f91c0.webp'
+                            }
+                        }
+                })
+
+            } else if (action === 'remove') {
+                client.sendMessage(groupId, {
+                    text:`Lamentamos ver partir a ${user}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
+                    contextInfo: {
+                        mentionedJid: [participant],
+                        externalAdReply: {
+                            title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
+                            body: `${days} dias ${hours} horas ${minutes} minutos ${seconds} segunfos`,
+                            showAdAttribution: true,
+                            renderLargerThumbnail: false, 
+                            mediaType: 1, 
+                            thumbnailUrl: 'https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/06/30/62be22d15330dd1f2a2f91c0.webp'
+                            }
+                        }
+                })
+            }
         }
-      }
     });
 	
 
