@@ -143,12 +143,12 @@ const start = async () => {
             const user = participant.split('@')[0];
             if (action === 'add') {
                 client.sendMessage(groupId, { 
-                    text:`¡Bienvenido/a ${user} al grupo ${groupName}! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
+                    text:`¡Bienvenido/a ${user} al grupo NaN! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
                     contextInfo: {
                         mentionedJid: [participant],
                         externalAdReply: {
                             title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
-                            body: `${days} dias ${hours} horas ${minutes} minutos ${seconds} segunfos`,
+                            body: `ugu`,
                             showAdAttribution: true,
                             renderLargerThumbnail: false, 
                             mediaType: 1, 
@@ -164,7 +164,7 @@ const start = async () => {
                         mentionedJid: [participant],
                         externalAdReply: {
                             title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
-                            body: `${days} dias ${hours} horas ${minutes} minutos ${seconds} segunfos`,
+                            body: `Ugu`,
                             showAdAttribution: true,
                             renderLargerThumbnail: false, 
                             mediaType: 1, 
